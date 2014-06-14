@@ -1,0 +1,21 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+
+before_script:
+  - phpenv rehash
+
+install:
+  - composer self-update
+  - composer install
+
+script:
+  - ln -s `pwd` vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PHPCompatibility
+  - mkdir -p build/logs
+  - phpunit --configuration phpunit-travis.xml
+
+after_script:
+  - php vendor/bin/coveralls
